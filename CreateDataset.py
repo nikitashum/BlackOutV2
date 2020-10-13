@@ -22,4 +22,5 @@ def create_dataset():
             image /= 255
             img_data_array.append(image)
             class_name.append(file[16])
+
     return img_data_array, class_name
