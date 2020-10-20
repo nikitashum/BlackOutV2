@@ -20,7 +20,7 @@ X_test = np.array(X_test).reshape(len(np.array(X_test)), np.prod(np.array(X_test
 encoded_train_features = encode(X_train)
 encoded_test_features = encode(X_test)
 
-with open('train.pickle', 'wb') as f:
+with open('./DataSet/train.pickle', 'wb') as f:
     pickle.dump([encoded_train_features, y_train], f)
-with open('test.pickle', 'wb') as f:
+with open('./DataSet/test.pickle', 'wb') as f:
     pickle.dump([encoded_test_features, y_test], f)

@@ -6,10 +6,10 @@ import numpy as np
 import pickle
 
 
-train_file = open('train.pickle', "rb")
+train_file = open('./DataSet/train.pickle', "rb")
 X_train, y_train = pickle.load(train_file)
 
-test_file = open('test.pickle', "rb")
+test_file = open('./DataSet/test.pickle', "rb")
 X_test, y_test = pickle.load(test_file)
 
 X_train = X_train.reshape(len(X_train), 78)
@@ -17,19 +17,15 @@ X_test = X_test.reshape(len(X_test), 78)
 y_train = np.array(y_train)
 y_test = np.array(y_test)
 
-dense_layers = [1]
-layer_sizes = [5]
-conv_layers = [1]
-epoch = 32
-batch = 64
-
-
-mlp = MLPClassifier(solver='sgd', activation='logistic', alpha=1e-4, hidden_layer_sizes=(100, 30),
-                    random_state=5, verbose=True, learning_rate_init=.1, tol=1e-4)
+mlp = MLPClassifier(solver='sgd', activation='relu', alpha=1e-4, hidden_layer_sizes=(100, 78),
+                    random_state=5, verbose=True, learning_rate_init=.1, tol=1e-4, batch_size='auto')
 mlp.fit(X_train, y_train)
 
 print("Training set score: %f" % mlp.score(X_train, y_train))
 print("Test set score: %f" % mlp.score(X_test, y_test))
+
+filename = './Models/Classifier/classifier_model.sav'
+pickle.dump(mlp, open(filename, 'wb'))
 
 y_pred = mlp.predict(X_test)
 
